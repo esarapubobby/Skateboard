@@ -14,7 +14,7 @@ public class TileManager : MonoBehaviour
 
     private Vector3 nextSpawnPosition;
     private Quaternion nextSpawnRotation;
-    public int initialStraightTiles = 3;
+    public int initialStraightTiles = 1;
     private int spawnedTiles = 0;
     private int currentIndex = 0;
 
@@ -31,11 +31,19 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
-        if (player.position.z > nextSpawnPosition.z - 15f)
+         if (activeTiles.Count == 0) return;
+
+        float distance = Vector3.Distance(
+            player.position,
+            activeTiles[activeTiles.Count - 1].transform.position
+        );
+
+        if (distance < 25f) // tile length 20 + buffer
         {
             SpawnTile();
             DeleteTile();
         }
+
     }
 
     void SpawnTile()
@@ -63,7 +71,7 @@ public class TileManager : MonoBehaviour
         activeTiles.Add(tile);
 
         Transform exitPoint = tile.transform.Find("ExitPoint");
-
+        Debug.Log(exitPoint.position);
         nextSpawnPosition = exitPoint.position;
         nextSpawnRotation = exitPoint.rotation;
 
