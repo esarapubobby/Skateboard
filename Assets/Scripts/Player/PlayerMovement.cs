@@ -7,18 +7,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float ExtraGravity=30f;
     [SerializeField] float JumpForce=8f;
     [SerializeField]float speed=10f;
+    
     Rigidbody rb;
     Vector3 MoveDirection;
+    [SerializeField] float turnSpeed = 5f;
+    float targetY;
+
     bool isGrounded=true;
-    int StepIndex=0;
+    // int StepIndex=0;
 
 
     void Start()
     {
+        targetY = transform.eulerAngles.y;
+
         rb= GetComponent<Rigidbody>();
         rb.freezeRotation=true;
         MoveDirection=transform.forward;
-        
+
         int level=PlayerPrefs.GetInt("Level",0);
         if (level==0)
         {
@@ -37,24 +43,31 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-        if (StepIndex==0 && Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            StepIndex=1;
-            MoveDirection=Quaternion.Euler(0,-90f,0)*MoveDirection;
-        }
-        if (StepIndex==1 && Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            StepIndex=0;
-            MoveDirection=Quaternion.Euler(0,90f,0)*MoveDirection;
-        }
         if (Input.GetKeyDown(KeyCode.UpArrow)&& isGrounded)
         {
             rb.AddForce(Vector3.up *JumpForce,ForceMode.Impulse);
             isGrounded=false;
         }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            targetY -= 90f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            targetY += 90f;
+        }
+
+        
+        
     }
     void FixedUpdate()
     {
+        float newY = Mathf.LerpAngle(transform.eulerAngles.y,targetY,turnSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0, newY, 0);
+        MoveDirection = transform.forward;
+
+
         rb.AddForce(Vector3.down * ExtraGravity, ForceMode.Acceleration);
         Vector3 finalVelocity = MoveDirection.normalized * speed;
         finalVelocity.y = rb.velocity.y;
