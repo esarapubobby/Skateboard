@@ -16,7 +16,7 @@ public class TileManager : MonoBehaviour
     private Vector3 nextSpawnPosition;
     private Quaternion nextSpawnRotation;
 
-   
+   public CoinSpawn coinSpawner;
     private int currentIndex = 0;
 
     void Start()
@@ -86,6 +86,8 @@ public class TileManager : MonoBehaviour
         nextSpawnPosition = exitPoint.position;
         nextSpawnRotation = exitPoint.rotation;
 
+
+        coinSpawner.SpawnCoinsOnTile(tile);
      
     }
 
