@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float ExtraGravity = 20f;
-    [SerializeField] float JumpForce = 8f;
+    [SerializeField] float JumpForce = 10f;
     [SerializeField] float speed = 10f;
 
-    [SerializeField] float turnSpeed = 100f;      
-    [SerializeField] float maxTurnAngle = 90f;   
+    [SerializeField] float turnSpeed = 80f;      
+    [SerializeField] float maxTurnAngle = 90f;  
+    [SerializeField]GameObject GameOver; 
 
     Rigidbody rb;
     Vector3 MoveDirection;
@@ -82,13 +83,24 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-            isGrounded = true;
+        if (collision.gameObject.tag=="Ground")
+        {
+             isGrounded = true;
+        }
+           
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            GameOver.SetActive(true);
+            Time.timeScale=0f;
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Coin"))
+        {
             other.gameObject.SetActive(false);
+        }
+            
     }
 }

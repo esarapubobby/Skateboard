@@ -10,7 +10,7 @@ public class ScoreCalculation : MonoBehaviour
      public TextMeshProUGUI Score;
      int coinsCollected=0;
     float timer=0;
-    int timeUpdated;
+  
     public static int FinalScore;
     public static int FinalCoins;
     void Start()

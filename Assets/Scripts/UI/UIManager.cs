@@ -15,11 +15,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]TextMeshProUGUI GameOver_Score;
     [SerializeField]TextMeshProUGUI GameOver_Coins;
     public GameObject LevelsPannel;
+    public Transform Player;
 
     public PlayerMovement player;
     
     static bool SkipMenu=false;
     static bool SkipLevelPanel = false;
+    Rigidbody Rb;
    
 
     
@@ -29,6 +31,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
     Time.timeScale = 0f;
+    Rb=Player.GetComponent<Rigidbody>();
 
     
     if (!SkipMenu)
@@ -133,6 +136,7 @@ public class UIManager : MonoBehaviour
         PausePannel.SetActive(false);
         CountdownPannel.SetActive(true);
         player.enabled=false;
+        Rb.constraints=RigidbodyConstraints.FreezePosition;
         Time.timeScale=1f;
         CountdownText.text="3";
         yield return new WaitForSeconds(1f);
@@ -140,6 +144,8 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         CountdownText.text="1";
         yield return new WaitForSeconds(1f);
+        Rb.constraints=RigidbodyConstraints.None;
+        Rb.freezeRotation=true;
         CountdownPannel.SetActive(false);
         player.enabled=true;
         

@@ -5872,8 +5872,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212038715}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29351705, y: 0.00000002552497, z: -0.0000000078372135, w: 0.9559539}
-  m_LocalPosition: {x: 0, y: 6.7799997, z: -10}
+  m_LocalRotation: {x: 0.19948183, y: 0, z: 0, w: 0.97990155}
+  m_LocalPosition: {x: 0, y: 1.2699999, z: -2.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6504,8 +6504,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417147158}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29351705, y: 0, z: 0, w: 0.95595384}
-  m_LocalPosition: {x: 0, y: 8.729, z: -8.579}
+  m_LocalRotation: {x: 0.19948183, y: 0, z: 0, w: 0.97990155}
+  m_LocalPosition: {x: 0, y: 3.2189999, z: -1.569}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7349,6 +7349,7 @@ GameObject:
   - component: {fileID: 611638684}
   - component: {fileID: 611638683}
   - component: {fileID: 611638682}
+  - component: {fileID: 611638687}
   - component: {fileID: 611638681}
   m_Layer: 0
   m_Name: Player
@@ -7396,10 +7397,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d234311bb0cd77042be8655a3205e398, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExtraGravity: 30
+  ExtraGravity: 20
   JumpForce: 10
   speed: 10
-  turnSpeed: 5
+  turnSpeed: 80
+  maxTurnAngle: 90
+  GameOver: {fileID: 1855946387}
 --- !u!136 &611638683
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7490,6 +7493,20 @@ Transform:
   - {fileID: 177794946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &611638687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611638680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1aaf4f56c0f604987f6be506d37b41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Coins: {fileID: 614541620}
+  Score: {fileID: 1492384876}
 --- !u!1 &614541617
 GameObject:
   m_ObjectHideFlags: 0
@@ -10002,7 +10019,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1778043280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10023,6 +10040,7 @@ MonoBehaviour:
   GameOver_Score: {fileID: 0}
   GameOver_Coins: {fileID: 0}
   LevelsPannel: {fileID: 1838552324}
+  Player: {fileID: 611638686}
   player: {fileID: 611638682}
 --- !u!114 &1778043281
 MonoBehaviour:
@@ -10360,7 +10378,7 @@ GameObject:
   - component: {fileID: 1821816957}
   - component: {fileID: 1821816960}
   - component: {fileID: 1821816959}
-  - component: {fileID: 1821816958}
+  - component: {fileID: 1821816961}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -10383,18 +10401,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 212038716}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1821816958
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821816956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1821816959
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -10408,7 +10414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 6.78, z: -10}
+  m_FollowOffset: {x: 0, y: 1.27, z: -2.99}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -10427,6 +10433,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1821816961
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821816956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1838552324
