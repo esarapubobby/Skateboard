@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float JumpForce = 10f;
     [SerializeField] float speed = 10f;
 
-    [SerializeField] float turnSpeed = 100f;      
+    [SerializeField] float turnSpeed = 80f;      
     [SerializeField] float maxTurnAngle = 90f;  
     [SerializeField]GameObject GameOver; 
 
